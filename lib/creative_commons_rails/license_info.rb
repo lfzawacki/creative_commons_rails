@@ -32,16 +32,20 @@ module CreativeCommonsRails
       @type, @jurisdiction, @version = type, jurisdiction, version
     end
 
+    def formatted_type
+      type.to_s.gsub('_', '-')
+    end
+
     def deed_url
-      if jurisdiction == "unported"
-        "http://creativecommons.org/licenses/#{type}/#{version}/deed.#{language}"
+      if jurisdiction == :unported
+        "http://creativecommons.org/licenses/#{formatted_type}/#{version}/deed.#{language}"
       else
-        "http://creativecommons.org/licenses/#{type}/#{version}/#{jurisdiction}/deed.#{language}"
+        "http://creativecommons.org/licenses/#{formatted_type}/#{version}/#{jurisdiction}/deed.#{language}"
       end
     end
 
     def icon_url(size = :normal)
-      "http://i.creativecommons.org/l/#{type}/#{version}/#{size == :compact ? '80x15' : '88x31'}.png"
+      "http://i.creativecommons.org/l/#{formatted_type}/#{version}/#{size == :compact ? '80x15' : '88x31'}.png"
     end
 
     def translated_title
